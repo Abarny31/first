@@ -1,5 +1,6 @@
 package selenium.org.myself;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.junit.AfterClass;
@@ -26,6 +27,7 @@ public class adactin extends Base3 {
 	@Test
 	public void test() throws IOException, InterruptedException, JAXBException {
 		JAXBContext context=JAXBContext.newInstance(Adactind.class);
+		Adactind a1=new Adactind();
 	    Unmarshaller um = context.createUnmarshaller();
 	    Adactind d=(Adactind)um.unmarshal(new File("C:\\Users\\admin\\eclipse-workspaceo\\org.myself\\excel\\adactind.xml"));
 		adactinpom a = new adactinpom(driver);
@@ -55,5 +57,13 @@ public class adactin extends Base3 {
 	    driver.findElement(By.id("book_now")).click();
 	    Thread.sleep(7000);
 	    System.out.println(a.getCcv().getAttribute("value"));
+	    String h=a.getCcv().getAttribute("value");
+	    a1.setOrderid(h);
+	    Marshaller jaxbMarshaller = context.createMarshaller();
+	    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	    jaxbMarshaller.marshal(a1 ,new FileOutputStream("adactind.xml"));
+	    
+	    
+	    
 	  //  setdata(a.getCcv().getAttribute("value"));
 }}
